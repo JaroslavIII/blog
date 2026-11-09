@@ -1,15 +1,52 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { QuartzComponentProps } from "./quartz/components/types"
+
+const isHome = (page: QuartzComponentProps) => page.fileData.slug === "index"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
-  afterBody: [],
+  afterBody: [
+    Component.ConditionalRender({
+      component: Component.HomeSection({
+        title: "Latest writing",
+        folder: "blog",
+        limit: 3,
+        moreLabel: "All posts",
+        emptyText: "The first post is on its way.",
+        showDates: true,
+      }),
+      condition: isHome,
+    }),
+    Component.ConditionalRender({
+      component: Component.HomeSection({
+        title: "Achievements",
+        folder: "achievements",
+        limit: 3,
+        moreLabel: "All achievements",
+        emptyText: "Coming soon.",
+        showDates: false,
+      }),
+      condition: isHome,
+    }),
+    Component.ConditionalRender({
+      component: Component.HomeSection({
+        title: "Projects",
+        folder: "projects",
+        limit: 3,
+        moreLabel: "All projects",
+        emptyText: "The first project is in the works.",
+        showDates: false,
+      }),
+      condition: isHome,
+    }),
+  ],
   footer: Component.Footer({
     links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
+      About: "/about",
+      GitHub: "https://github.com/JaroslavIII",
     },
   }),
 }

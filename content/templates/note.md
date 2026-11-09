@@ -2,6 +2,7 @@
 title: Title of the note
 date: 2026-11-08
 draft: true
+description: One sentence shown on the homepage card.
 tags: []
 ---
 
